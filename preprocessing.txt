@@ -1,0 +1,14 @@
+1) Dataset contains total 19 columns. Some of these columns are not used in our prediction. Therefore,
+   columns like 'Case_No', 'Qchat-10-Score', 'Ethnicity' and 'Who completed the test' are removed.
+
+2) Column 'Sex' contains values 'f' (for female) and 'm' (for male). These string values are replaced with
+   binary values 0 and 1. 0 represents female and 1 represents male.
+
+3) Column 'Jaundice' contains values 'yes' and 'no'. These values are replaced with binary values 1 and 0
+   respectively.
+
+4) Column 'Family_mem_with_ASD' contains values 'yes' and 'no'. These values are replaced with binary values
+   1 and 0 respectively.
+
+5) Target column 'Class/ASD Traits' contains values 'Yes' and 'No'. These values are replaced with binary
+   values 1 and 0 respectively.

@@ -1,0 +1,21 @@
+{% extends "admin/admin_index1.html" %}
+{% block body %}
+<table border="1" class="table table-striped">
+    <tr style="color: #ffffff; background: #000000">
+        <th>SL NO</th>
+        <th>USER NAME</th>
+        <th>DATE</th>
+        <th>COMPLAINT</th>
+        <th></th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ i['name'] }}</td>
+        <td>{{ i['date'] }}</td>
+        <td>{{ i['complaint'] }}</td>
+        <td><a href="/send_reply/{{ i['complaint_id'] }}" class="btn btn-info">Reply</a> </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "admin/admin_index1.html" %}
+{% block body %}
+<table border="1" class="table table-striped">
+    <tr style="color: #ffffff; background: #000000">
+        <th>SL NO</th>
+        <th>DATE</th>
+        <th>TITLE</th>
+        <th>CONTENT</th>
+        <th></th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ i['date'] }}</td>
+        <td>{{ i['title'] }}</td>
+        <td>{{ i['content'] }}</td>
+        <td><a href="/admin_delete_notification/{{ i['notification_id'] }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a> </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

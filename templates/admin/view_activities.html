@@ -1,0 +1,19 @@
+{% extends "admin/admin_index1.html" %}
+{% block body %}
+<table border="1" class="table table-striped">
+    <tr style="color: #ffffff; background: #000000">
+        <th>SL NO</th>
+        <th>NAME</th>
+        <th>DESCRIPTION</th>
+        <th></th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ i['activity_name'] }}</td>
+        <td>{{ i['description'] }}</td>
+        <td><a href="/admin_delete_activities/{{ i['activity_id'] }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a> </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
