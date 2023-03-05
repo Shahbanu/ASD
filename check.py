@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 class autism_pred:
     def predict(self, feats):
-        data=pd.read_csv(r"D:\ASWIN\2022-2023 workspace\LBS\Autism_spectrum_disorder\static\Toddler Autism dataset July 2018.csv")
+        data=pd.read_csv(r"C:\ASD\Toddler Autism dataset July 2018.csv")
         attributes=data.values[1:200, :14]
         labels=data.values[1:200, 14]
 
