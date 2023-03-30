@@ -1,0 +1,42 @@
+import pandas as pd
+from sklearn.svm import NuSVC
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.model_selection import train_test_split
+
+
+class autism_pred:
+    def predict(self, feats):
+        data=pd.read_csv(r"C:\Users\shahma fathima\OneDrive\project\sprint1\Toddler Autism dataset July 2018.csv")
+        attributes=data.values[:, :14]
+        labels=data.values[:, 14]
+
+        x_train, x_test, y_train, y_test =train_test_split(attributes, labels, test_size=0.2)
+        svm=NuSVC()
+        svm.fit(x_train, y_train)
+        y_pred=svm.predict(x_test)
+        acc=accuracy_score(y_test, y_pred)
+        pre=precision_score(y_test, y_pred)
+        rec=recall_score(y_test, y_pred)
+        f1=f1_score(y_test, y_pred)
+        print(acc)
+        print(pre)
+        print(rec)
+        print(f1)
+        print("Accuracy : ", round(acc * 100, 2))
+        print("Precision : ", round(pre * 100, 2))
+        print("Recall : ", round(rec * 100, 2))
+        print("f1score : ", round(f1 * 100, 2))
+
+        # lst=[0,1,1,1,0,0,0,0,0,0,30,1,0,0]
+        # pred=svm.predict([lst])
+        pred=svm.predict([feats])
+        print(pred)
+        if str(pred[0]) == '0':
+            print("Non austistic")
+            return "Non austistic"
+        else:
+            print("Autistic")
+            return "Autistic"
+
+obj=autism_pred()
+obj.predict([1,0,0,0,0,0,1,1,0,1,36,1,1,0])
