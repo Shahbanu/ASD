@@ -1,0 +1,9 @@
+@app.route("/and_view_notifications", methods=['post'])
+def and_view_notifications():
+    db=Db()
+    res=db.select("SELECT * FROM `notification` ORDER BY notification_id DESC")
+    if len(res) > 0:
+        return jsonify(status="ok", data=res)
+    else:
+        return jsonify(status="no")
+

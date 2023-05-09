@@ -1,0 +1,30 @@
+@app.route("/admin_view_users")
+def admin_view_users():
+    if session['lg']!='yes':
+        return "<script>alert('You are logged out');window.location='/';</script>"
+    db=Db()
+    res=db.select("select * from users")
+    return render_template("admin/view_users.html", data=res)
+
+
+@app.route("/admin_view_complaints")
+def admin_view_complaints():
+    if session['lg']!='yes':
+        return "<script>alert('You are logged out');window.location='/';</script>"
+    db=Db()
+    res=db.select("select * from complaints, users where complaints.user_id=users.user_id and complaints.reply='pending'")
+    return render_template("admin/view_complaints.html", data=res)
+
+@app.route("/send_reply/<id>")
+def send_reply(id):
+    if session['lg']!='yes':
+        return "<script>alert('You are logged out');window.location='/';</script>"
+    return render_template("admin/send_reply.html", id=id)
+
+@app.route("/send_reply_post", methods=['post'])
+def send_reply_post():
+    id=request.form['hid']
+    reply=request.form['textarea']
+    db=Db()
+    db.update("update complaints set reply='"+reply+"' where complaint_id='"+id+"'")
+    return "<script>alert('Reply sent');window.location='/admin_view_complaints';</script>"
