@@ -1,0 +1,51 @@
+@app.route('/')
+def login():
+    return render_template("login_temp.html")
+    # return render_template("login.html")
+
+
+
+@app.route("/login_post", methods=['post'])
+def login_post():
+    username=request.form['textfield']
+    password=request.form['textfield2']
+    db=Db()
+    res=db.selectOne("SELECT * FROM login WHERE username='"+username+"' AND PASSWORD='"+password+"'")
+    if res is not None:
+        if res['usertype']=="admin":
+            session['lg']="yes"
+            return redirect("/admin_home")
+        else:
+            return "<script>alert('Unauthorised user');window.location='/';</script>"
+    else:
+        return "<script>alert('Invalid Details');window.location='/';</script>"
+
+
+@app.route("/logout")
+def logout():
+    session['lg']=""
+    return "<script>alert('Logged out');window.location='/';</script>"
+
+######              ADMIN
+@app.route("/admin_home")
+def admin_home():
+    if session['lg']!='yes':
+        return "<script>alert('You are logged out');window.location='/';</script>"
+    return render_template("admin/admin_index.html")
+@app.route("/admin_change_password")
+def admin_change_password():
+    if session['lg']!='yes':
+        return "<script>alert('You are logged out');window.location='/';</script>"
+    return render_template("admin/change_password.html")
+
+@app.route("/admin_change_password_post", methods=['post'])
+def admin_change_password_post():
+    psw=request.form['textfield']
+    npsw=request.form['textfield2']
+    db=Db()
+    res=db.selectOne("select * from login where password='"+psw+"' and usertype='admin'")
+    if res is None:
+        return "<script>alert('Incorrect password');window.location='/admin_change_password';</script>"
+    else:
+        db.update("update login set password='"+npsw+"' where login_id='"+str(res['login_id'])+"'")
+        return "<script>alert('Password Changed');window.location='/admin_change_password';</script>"
